@@ -1,18 +1,15 @@
-namespace Catalog.API;
+var builder = WebApplication.CreateBuilder(args);
 
-public class Program
+// Add services to the container
+builder.Services.AddCarter();
+builder.Services.AddMediatR(config =>
 {
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        
-        // Add services to the container
-        
-        var app = builder.Build();
+    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+}); 
 
-        // Configure the HTTP request pipeline.
-      
+var app = builder.Build();
 
-        app.Run();
-    }
-}
+// Configure the HTTP request pipeline
+app.MapCarter();
+
+app.Run();
